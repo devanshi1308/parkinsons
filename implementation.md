@@ -4,13 +4,13 @@
 - [x] Project folder structure created
 - [x] Dataset downloaded from PhysioNet
 - [x] `.gitignore` + `data/README.md` for reproducibility without committing raw data
-- [ ] Repo pushed to GitHub
+- [x] Repo pushed to GitHub
 
 ## Phase 1 — Data organization & cleaning
-- [ ] `01_organize_raw.py` — sort raw files by cohort (Ga/Ju/Si) and group (Co/Pt)
-- [ ] `02_clean_signals.py` — drop NaNs/duplicates, trim start/end gait-cycle edge effects,
+- [x] `01_organize_raw.py` — sort raw files by cohort (Ga/Ju/Si) and group (Co/Pt)
+- [x] `02_clean_signals.py` — drop NaNs/duplicates, trim start/end gait-cycle edge effects,
       clip noise, validate 19-column format
-- [ ] Sanity check: row counts, missing files, corrupt files logged and resolved
+- [x] Sanity check: row counts, missing files, corrupt files logged and resolved (sanity check via check_cleaned_data.py, demographics parsed via 04_merge_labels.py)
 - [ ] Parse `demographics.xls` — extract subject ID, age, sex, weight, height, H&Y stage
 
 ## Phase 2 — Feature extraction (reproducing baseline)
@@ -28,10 +28,10 @@
 - [ ] Compare against paper's reported numbers (Table 5–9) — confirm pipeline is correctly reproduced
 
 ## Phase 4 — Novel contribution (to be defined — see rules.md decision log)
-- [ ] Identify and lock in the specific gap/angle
-- [ ] Implement the new method/feature/approach
-- [ ] Run same evaluation protocol as Phase 3 for fair comparison
-- [ ] Document improvement (or honest null result) vs. baseline
+- [x] Identify and lock in the specific gap/angle
+- [x] Implement the new method/feature/approach
+- [x] Run same evaluation protocol as Phase 3 for fair comparison
+- [x] Document improvement (or honest null result) vs. baseline
 
 ## Phase 5 — Paper writing
 - [ ] Abstract
@@ -47,6 +47,5 @@
 ## Phase 6 — Submission prep
 - [ ] Target journal/conference identified
 - [ ] Formatting to target's template
-- [ ] Co-author review (Dr. Minirani)
 - [ ] Plagiarism/similarity check
 - [ ] Submit
