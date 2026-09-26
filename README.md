@@ -1,8 +1,8 @@
 # Leakage-free, explainable Parkinson's disease screening
 
-Reproduces Balaji et al. (2020) gait-based PD classification on PhysioNet gaitpdb, shows that
+Re-implements Balaji et al. (2020) gait-based PD classification on PhysioNet gaitpdb, shows that
 trial-level cross-validation leaks subjects between train and test and inflates accuracy
-(~67-70% vs ~40% subject-grouped, 4-class), and provides a corrected protocol with richer
+(4-class: 65-76% trial-level vs 38-46% subject-grouped; see `scripts/14_leakage_comparison.py`), and provides a corrected protocol with richer
 features, SHAP explanations, and cross-modality validation on wrist-sensor (PADS) and voice
 (UCI speech) data.
 

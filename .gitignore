@@ -24,3 +24,5 @@ __pycache__/
 
 data/raw_pads/
 data/raw_voice/
+!data/processed/leakage_comparison.csv
+!data/processed/leakage_audit.csv

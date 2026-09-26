@@ -23,8 +23,12 @@ same person's trials appear in both train and test data, and provide a corrected
 evaluation protocol with interpretable models.
 
 **Specific objectives**
-1. Reproduce the baseline (Balaji et al. 2020) on PhysioNet gaitpdb.
-2. Quantify the leakage (trial-level ~67-70% vs subject-grouped ~40%, a ~30-point inflation).
+1. Re-implement the baseline pipeline (Balaji et al. 2020) on PhysioNet gaitpdb and evaluate it
+   under both trial-level and subject-grouped CV. Our trial-level numbers do not match the
+   baseline's ~99% headline; report that plainly.
+2. Quantify the leakage (`scripts/14_leakage_comparison.py`, 5 seeds, 4-class): trial-level
+   65-76% vs subject-grouped 38-46% accuracy, a 15-30 point inflation depending on classifier
+   (~30 points for Bagging and SVM). Binary inflation is smaller (1-11 points).
 3. Improve features (COP, variability, symmetry, frequency/regularity, demographics) and
    measure the gain under honest evaluation.
 4. Show the leakage effect generalizes: repeat leaky-vs-grouped on voice (UCI speech) and
@@ -51,10 +55,13 @@ leakage-free evaluation with richer spatiotemporal features.**
 Specifically:
 1. **Diagnosis**: Showed that trial-level cross-validation (used in the baseline paper and
    likely similar prior work) allows the same subject's trials to appear in both train and
-   test folds, inflating reported accuracy. Reproducing the baseline's trial-level CV gave
-   ~67-70% on our pipeline; switching to subject-grouped CV (StratifiedGroupKFold, no subject
-   ever split across train/test) dropped this to ~40% — a ~30 percentage point gap attributable
-   to leakage alone, not model quality.
+   test folds, inflating reported accuracy. In our pipeline (4-class, 5 seeds), trial-level CV
+   gave 65-76% accuracy across classifiers; switching to subject-grouped CV
+   (StratifiedGroupKFold, no subject ever split across train/test) gave 38-46%. The gap is
+   15-30 points depending on classifier (~30 for Bagging and SVM), attributable to leakage
+   alone, not model quality. On average ~63% of trial-level test trials belong to a subject
+   also present in training. Gaps are smaller in the 3-class (9-32 points) and binary (1-11
+   points) schemes. Results are unchanged when preprocessing is fit inside each fold.
 2. **Improved feature engineering**: Added center-of-pressure (COP) trajectory features
    (computed from the paper's own sensor X-Y geometry — spatial information the original
    VGRF-only approach didn't use), stride-time coefficient of variation (established PD

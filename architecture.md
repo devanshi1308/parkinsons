@@ -62,7 +62,7 @@ flowchart LR
 | Features v3 (demographics, FFT/wavelet, regularity, double support) | `03_extract_features_v3.py` | planned |
 | RF, XGBoost, LR, stacking | `12_train_models_v3.py` | planned |
 | Sliding-window LSTM (optional) | `13_lstm_windows.py` | planned |
-| Leaky vs grouped comparison figure | `14_leakage_figure.py` | planned |
+| Leaky vs grouped comparison + figure + leak audit | `14_leakage_comparison.py` | done |
 
 ### Model B: wrist tremor / hand movement (PADS) [planned]
 - Load accel and gyro per task; extract tremor-band (4-6 Hz) power, amplitude, variability,

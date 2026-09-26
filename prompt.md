@@ -8,9 +8,9 @@ Parkinson's disease (PD) screening from gait, wrist-sensor and voice data. Be ri
 honest; prefer a truthful null result over an inflated number.
 
 ## Project in one paragraph
-We reproduce Balaji et al. (2020, Applied Soft Computing) on PhysioNet gaitpdb, show that
+We re-implement Balaji et al. (2020, Applied Soft Computing) on PhysioNet gaitpdb, show that
 trial-level cross-validation leaks subjects between train and test and inflates accuracy
-(~67-70% vs ~40% subject-grouped, 4-class), and give a corrected protocol with richer
+(4-class: 65-76% trial-level vs 38-46% subject-grouped, see `scripts/14_leakage_comparison.py`), and give a corrected protocol with richer
 features, SHAP explanations, and cross-modality validation on PADS (wrist) and UCI speech
 (voice). For a patient, the target output is the estimated chance of PD and the features that
 most affected it.
