@@ -185,8 +185,9 @@ In priority order, what's actually left:
    / healthy — unconfirmed, no finger-tapping task documented), extract tremor/movement
    features, subject-grouped CV, repeat the leaky-vs-grouped comparison (mirror
    `14_leakage_comparison.py`), SHAP, extend the fusion demo to three modalities.
-2. Optional sliding-window LSTM (`13_lstm_windows.py`) — expected to underperform at 165
-   subjects; low priority, explicitly optional.
+2. ~~Optional sliding-window LSTM~~ DONE: 66.0% trial-level accuracy, underperforms every
+   tabular model (72.6-81.7%), exactly as expected. Reported as an honest negative result
+   (`13_lstm_windows.py`, `data/processed/lstm_results.csv`, `docs/figures/lstm_vs_tabular.png`).
 3. `docs/project_overview.pdf` is stale (predates features v3, nested-CV correction, SHAP,
    baseline comparison, model-improvement follow-ups, voice, statistical robustness, remaining
    figures, fusion demo) — regenerate only if/when asked; not currently prioritized.

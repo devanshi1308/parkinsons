@@ -257,3 +257,15 @@ Record of project decisions. Add new entries at the bottom with the date and the
   from the permutation test (script 18) and ROC AUC=0.57 (script 21) -- three independent
   analyses now agree on this, which is reassuring internal consistency, not a new finding.
 - Output: `docs/fusion_demo_report.md`.
+
+## Optional LSTM done (script 13) -- negative result, as expected
+- 5s sliding windows (50% overlap, 500 samples x 18 channels), subject-grouped 5-fold CV,
+  1-layer LSTM (hidden=48) + dense head, PyTorch/MPS, light jitter+scale augmentation on
+  training windows only, early stopping on a held-out validation slice of training subjects.
+- Trial-level result (mean window probability per trial): 66.0% accuracy, macro-F1 0.635,
+  AUC 0.715 (binary Healthy vs PD, gait).
+- Underperforms every tabular baseline (Naive Bayes 72.6%, Decision Tree 71.7%, SVM 73.9%,
+  Bagging 78.2%, nested-selected best 81.7%) -- confirms the expectation stated when this was
+  planned ("expected to underperform at 165 subjects; report honestly"). Not pursued further;
+  do not use LSTM as a reported model in the paper except as this honest negative result.
+- Output: `data/processed/lstm_results.csv`, `docs/figures/lstm_vs_tabular.png`.

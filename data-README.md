@@ -26,10 +26,18 @@ These are not downloaded yet. Place each in its own folder so they never mix wit
 ### PADS — Parkinson's Disease Smartwatch (wrist tremor / hand movement, Model B)
 - Page: https://physionet.org/content/parkinsons-disease-smartwatch/1.0.0/
 - ~1.4 GB uncompressed (~735 MB zip). Open access, CC BY-NC-SA 4.0 (non-commercial, share-alike).
-- Download into `data/raw_pads/`:
+- Download into `data/raw_pads/` using the bulk ZIP endpoint (much faster than the recursive
+  `wget` of thousands of individual files — confirmed 735MB as one file vs. a slow per-file
+  crawl):
   ```
-  wget -r -N -c -np -P data/raw_pads https://physionet.org/files/parkinsons-disease-smartwatch/1.0.0/
+  mkdir -p data/raw_pads
+  curl -L -o data/raw_pads/pads.zip \
+    "https://physionet.org/content/parkinsons-disease-smartwatch/get-zip/1.0.0/"
+  cd data/raw_pads && unzip pads.zip
   ```
+  (This attempt failed in the Claude Code sandbox used for this project — that environment's
+  network was measured at ~4-16 KB/s against physionet.org, making the 735MB file take 13+
+  hours. On a normal home/office connection this should take a few minutes.)
 - After download, read the metadata/patient files to confirm the per-group counts
   (PD / differential diagnosis / healthy) before writing the loader.
 

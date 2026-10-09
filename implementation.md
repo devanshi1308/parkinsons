@@ -40,7 +40,7 @@
 ## Phase 4b — Extensions (planned)
 - [x] Gait features v3: demographics, speed, spectral, wavelet, regularity (autocorrelation, sample entropy), double support (`03_extract_features_v3.py`); DFA not implemented
 - [x] More models: Random Forest, Extra Trees, HistGradientBoosting, logistic regression, soft voting; 5 feature sets x 9 models x 3 schemes x 3 seeds (`12_train_models_v3.py`; XGBoost/LightGBM skipped, need libomp)
-- [ ] Optional sliding-window LSTM with augmentation, grouped CV (`13_lstm_windows.py`)
+- [x] Optional sliding-window LSTM with augmentation, grouped CV (`13_lstm_windows.py`) -- underperforms every tabular model as expected, reported honestly
 - [x] SHAP global + per-patient explanations, out-of-fold, clinical names (`40_shap_report.py`)
 - [x] SHAP on the compact 5-feature set (binary) and SHAP for the 4-class model, per-stage top
       features (`41_shap_4class_and_compact.py`)
