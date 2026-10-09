@@ -228,3 +228,32 @@ Record of project decisions. Add new entries at the bottom with the date and the
 - **Combined gait+voice leakage figure** (`19_combined_leakage_figure.py`): 4-panel figure
   (gait 4-class/3-class/binary + voice binary), 20-seed means, significance stars from the
   Wilcoxon test. This is the paper's headline figure -- `docs/figures/combined_leakage_gap.png`.
+
+## Remaining figures done (script 21)
+- Out-of-fold (subject-grouped, Random Forest) confusion matrices: gait 4-class (48.0% acc --
+  confirms Severe is unlearnable: 0/24 Severe trials predicted correctly, all go to Mild/
+  Moderate), gait binary (79.7%), voice binary (55.9%, matches the grouped-protocol numbers
+  from script 14/31).
+- ROC: gait binary AUC=0.86; voice binary AUC=0.57 (barely above chance) -- independently
+  confirms the permutation-test finding (script 18) that voice's honest accuracy is not
+  clearly distinguishable from chance. Good cross-check, consistent story across two
+  different analyses.
+- VGRF example plot and COP trajectory example plot: one healthy, one Mild-PD trial, 15s
+  window. Visual sanity check, not a quantitative result.
+- Outputs: `docs/figures/confusion_gait_4class.png`, `confusion_gait_binary.png`,
+  `confusion_voice_binary.png`, `roc_binary_gait_voice.png`,
+  `vgrf_example_healthy_vs_pd.png`, `cop_trajectory_example.png`.
+
+## Late-fusion demo done (script 22) -- gait+voice only, PADS blocked
+- Scope: two-modality demo (gait + voice), explicitly NOT three-modality since PADS could not
+  be downloaded here. Report states plainly that the gait and voice "patients" shown are
+  different real people from different datasets (no paired multimodal data exists), so no
+  fused-accuracy claim is made -- only the fusion MECHANICS are demonstrated (per-model Platt
+  calibration fit only on that model's own training folds, simple-average combination,
+  feature-attribution report).
+- Example output: a high-risk pairing (gait 96% + voice 57% -> illustrative fused 76%) and a
+  low-risk pairing (gait 12% + voice 44% -> illustrative fused 28%). Gait moves confidently
+  between examples; voice barely moves (44-57%), consistent with its near-chance standing
+  from the permutation test (script 18) and ROC AUC=0.57 (script 21) -- three independent
+  analyses now agree on this, which is reassuring internal consistency, not a new finding.
+- Output: `docs/fusion_demo_report.md`.

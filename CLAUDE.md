@@ -166,30 +166,33 @@ statistical significance/permutation/capacity-table/fold-sensitivity checks, the
 gait+voice headline figure, and a first Methods/Results draft
 (`docs/paper_draft_methods_results.md`).
 
+Per explicit user instruction (2026-10): paper-writing/draft work is PAUSED. Do not
+continue Abstract/Introduction/Related Work/Discussion/Conclusion unless the user asks again.
+
+Done this round (previously listed as "left"): remaining figures (confusion matrix x3, ROC,
+VGRF example, COP trajectory — `21_figures_confusion_roc_vgrf.py`), late-fusion demo
+(gait+voice only, PADS excluded — `22_fusion_demo.py`).
+
 In priority order, what's actually left:
-1. **PADS wrist model** (`20`-`22` script slots, not started): download attempted this session
-   and ABANDONED — this sandbox's network is heavily throttled (~4-16 KB/s measured directly
-   against physionet.org), so the 735MB bulk zip would take 13+ hours. Needs the USER to download
-   on their own machine (`curl -L -o data/raw_pads/pads.zip
+1. **PADS wrist model** (script slots `21`-`23` are now taken by gait/voice figures and fusion
+   demo — use e.g. `23`-`25` when starting this): download attempted and ABANDONED in this
+   sandbox — network heavily throttled (~4-16 KB/s measured directly against physionet.org),
+   so the 735MB bulk zip would take 13+ hours. Needs the USER to download on their own machine
+   (`curl -L -o data/raw_pads/pads.zip
    "https://physionet.org/content/parkinsons-disease-smartwatch/get-zip/1.0.0/"`, documented in
-   data-README.md) and drop it in `data/raw_pads/`, or explicitly ask to retry the slow in-sandbox
-   download. Once present: read metadata for true group counts (PD / differential dx / healthy —
-   unconfirmed, no finger-tapping task documented), extract tremor/movement features, subject-
-   grouped CV, repeat the leaky-vs-grouped comparison (mirror `14_leakage_comparison.py`).
-2. **Late-fusion demo** (`50_fusion_demo.py`, not started) — needs PADS (item 1) first; demo
-   only, no fused-accuracy claim.
-3. **Finish the paper draft**: `docs/paper_draft_methods_results.md` has Methods + Results with
-   full statistical backing. Still needed: Abstract, Introduction, Related Work (raw material
-   exists in `docs/project_overview.pdf` §3, needs trimming into prose), Discussion, Conclusion.
-   Update the draft's PADS limitation note once/if PADS data exists.
-4. Remaining figures: confusion matrix, ROC curves, VGRF/COP plots (leakage-gap, combined
-   gait+voice headline figure, and all SHAP plots are already done).
-5. Optional sliding-window LSTM (`13_lstm_windows.py`) — expected to underperform at 165
-   subjects; low priority.
-6. `docs/project_overview.pdf` is stale (predates features v3, nested-CV correction, SHAP,
-   baseline comparison, model-improvement follow-ups, voice, statistical robustness) —
-   regenerate before sharing it again, or point people to the new Methods/Results draft instead.
-7. Phase 6 submission prep (venue, formatting, similarity check) — after the draft is complete.
+   data-README.md) and drop it in `data/raw_pads/`, or explicitly ask to retry the slow
+   in-sandbox download. Once present: read metadata for true group counts (PD / differential dx
+   / healthy — unconfirmed, no finger-tapping task documented), extract tremor/movement
+   features, subject-grouped CV, repeat the leaky-vs-grouped comparison (mirror
+   `14_leakage_comparison.py`), SHAP, extend the fusion demo to three modalities.
+2. Optional sliding-window LSTM (`13_lstm_windows.py`) — expected to underperform at 165
+   subjects; low priority, explicitly optional.
+3. `docs/project_overview.pdf` is stale (predates features v3, nested-CV correction, SHAP,
+   baseline comparison, model-improvement follow-ups, voice, statistical robustness, remaining
+   figures, fusion demo) — regenerate only if/when asked; not currently prioritized.
+4. Paper writing (Phase 5/6) — paused per the note above; resume only on explicit request. When
+   resumed: `docs/paper_draft_methods_results.md` already has Methods + Results with full
+   statistical backing to build on.
 
 Always keep this file in sync: update "Measured results" below and this list whenever a script
 runs or a decision changes, in the same turn as the work — don't let it drift to a later cleanup.

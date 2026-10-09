@@ -51,9 +51,9 @@
 - [x] Nested-CV selection extended to include XGBoost/LightGBM as candidates (`17_nested_with_boosting.py`)
 - [x] UCI speech voice model: downloaded, loaded, grouped CV, leaky-vs-grouped, SHAP
       (`30_voice_load.py`, `31_voice_leakage_comparison.py`, `32_voice_shap.py`)
-- [ ] Late-fusion demo + patient report (`50_fusion_demo.py`); demo only, no fused accuracy claim
+- [x] Late-fusion demo + patient report, gait+voice (PADS blocked, see rules.md) (`22_fusion_demo.py`, `docs/fusion_demo_report.md`); demo only, no fused accuracy claim
 - [x] Combined gait+voice headline leakage figure (`19_combined_leakage_figure.py`)
-- [ ] Remaining figures: confusion matrix, ROC, VGRF/COP plots (leakage gap and all SHAP plots already done)
+- [x] Remaining figures: confusion matrix (gait 4-class/binary, voice), ROC (gait+voice), VGRF example, COP trajectory example (`21_figures_confusion_roc_vgrf.py`)
 
 - [x] Statistical robustness: paired significance (Wilcoxon + Cohen's d, 20 seeds), permutation
       (chance-level) test, capacity-vs-gap table, for both gait and voice (`18_statistical_robustness.py`,

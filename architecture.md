@@ -104,11 +104,13 @@ flowchart LR
 - Patient report template: PD risk per modality, top contributing features, one
   plain-language sentence -- `docs/patient_reports.md` (gait examples).
 
-### Late fusion [planned, blocked on PADS]
-- Calibrate each model's probability (Platt or isotonic, fit on validation data).
-- Combine by simple average or validation-AUC weights; never tune on test data.
-- Script: `50_fusion_demo.py`. Needs at least gait + voice + wrist to be meaningful as a
-  three-modality demo; could be built as a two-modality (gait+voice) demo sooner if desired.
+### Late fusion [done, gait+voice only -- PADS blocked]
+- Calibrates each model's probability (Platt scaling, fit on each model's own training folds
+  only); combines by simple average on one illustrative patient pair per risk level. Report
+  states plainly that gait and voice patients are different real people (no paired data
+  exists), so no fused-accuracy claim is made.
+- Script: `22_fusion_demo.py` -> `docs/fusion_demo_report.md`. Extending to three modalities
+  needs PADS (see Model B above).
 
 ## 4. Evaluation rules (apply everywhere)
 - Subject-grouped `StratifiedGroupKFold`; no subject in both train and test; seed 42.
