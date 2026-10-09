@@ -57,3 +57,23 @@ p-values are the fraction of subject-level label permutations that scored at lea
 | binary   | Ensemble (Bagging) |              15.23 | voice      |               3 |
 
 Classifiers are ordered by their ability to carve out subject-specific decision boundaries (Naive Bayes < linear SVM < single Decision Tree < Bagging of trees). If the gap grows roughly in this order within each scheme/modality, that supports a mechanistic story (higher-capacity models more easily memorize a subject's signature) rather than leakage being an unexplained statistical artifact.
+## D. Fold-count sensitivity (5-fold vs 10-fold, 10 seeds each)
+
+Reruns the leakage gap at 5-fold CV instead of the usual 10-fold, for gait (4-class, binary) and voice (binary), to check the finding is not an artifact of one particular fold count.
+
+| modality   | scheme   | classifier         |   gap_pts_5fold |   gap_pts_10fold |
+|:-----------|:---------|:-------------------|----------------:|-----------------:|
+| gait       | 4class   | Bayes (GaussianNB) |            13   |             13.8 |
+| gait       | 4class   | Decision Tree      |            20.6 |             23.6 |
+| gait       | 4class   | Ensemble (Bagging) |            29.9 |             30.2 |
+| gait       | 4class   | SVM                |            29.6 |             30.4 |
+| gait       | binary   | Bayes (GaussianNB) |             2.9 |              1.9 |
+| gait       | binary   | Decision Tree      |             6.8 |              9.4 |
+| gait       | binary   | Ensemble (Bagging) |             7.6 |              8.6 |
+| gait       | binary   | SVM                |            11.7 |             10.1 |
+| voice      | binary   | Bayes (GaussianNB) |             4.3 |              3.9 |
+| voice      | binary   | Decision Tree      |            10.1 |              9.7 |
+| voice      | binary   | Ensemble (Bagging) |            14.7 |             14.6 |
+| voice      | binary   | SVM                |             9.2 |              8.7 |
+
+The gap persists at both fold counts for every classifier/scheme/modality tested (gap size differs slightly between 5- and 10-fold, as expected from the different train/test ratios, but the direction and rough magnitude are stable).

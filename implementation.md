@@ -58,6 +58,9 @@
       (chance-level) test, capacity-vs-gap table, for both gait and voice (`18_statistical_robustness.py`,
       `docs/statistical_robustness.md`)
 
+- [x] Fold-count sensitivity (5 vs 10 folds) and combined gait+voice headline figure
+      (`20_fold_sensitivity.py`, `19_combined_leakage_figure.py`, `docs/figures/combined_leakage_gap.png`)
+
 ## Phase 5 — Paper writing
 - [ ] Abstract
 - [ ] Introduction + motivation

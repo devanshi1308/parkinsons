@@ -218,3 +218,13 @@ Record of project decisions. Add new entries at the bottom with the date and the
   significantly above chance; voice grouped accuracy, while real and consistent with the acoustic
   literature (SHAP directions match known dysphonia markers), is not statistically distinguishable
   from chance at n=40 subjects with this test and classifier -- report as a genuine limitation.
+
+## Fold-count sensitivity (script 20) + combined figure (script 19)
+- **5-fold vs 10-fold CV, 10 seeds, gait (4-class, binary) and voice (binary):** the leakage gap
+  is stable across fold counts (within 1-3 points everywhere, e.g. gait 4-class Bagging 29.9pts
+  at 5-fold vs 30.2pts at 10-fold; voice Bagging 14.7 vs 14.6). Not an artifact of a particular
+  fold count. Full table in `data/processed/fold_sensitivity.csv` and
+  `docs/statistical_robustness.md` section D.
+- **Combined gait+voice leakage figure** (`19_combined_leakage_figure.py`): 4-panel figure
+  (gait 4-class/3-class/binary + voice binary), 20-seed means, significance stars from the
+  Wilcoxon test. This is the paper's headline figure -- `docs/figures/combined_leakage_gap.png`.
