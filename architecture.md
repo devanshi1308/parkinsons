@@ -63,28 +63,52 @@ flowchart LR
 | RF, Extra Trees, HistGradientBoosting, LR, soft voting (feature-family ablation) | `12_train_models_v3.py` | done |
 | Sliding-window LSTM (optional) | `13_lstm_windows.py` | planned |
 | Leaky vs grouped comparison + figure + leak audit | `14_leakage_comparison.py` | done |
+| Baseline-paper comparison (Tables 6/8/9, closes Phase 3) | `15_baseline_comparison.py` | done |
+| Model-improvement follow-ups: nested selection, subject aggregation, ordinal vs multiclass, compact features, XGBoost/LightGBM ablation | `16_model_improvements.py` | done |
+| Nested selection extended to XGBoost/LightGBM (final cited numbers) | `17_nested_with_boosting.py` | done |
+| Statistical robustness: paired significance, permutation test, capacity-vs-gap table | `18_statistical_robustness.py` | done |
+| Combined gait+voice headline leakage figure | `19_combined_leakage_figure.py` | done |
+| Fold-count sensitivity (5 vs 10 folds) | `20_fold_sensitivity.py` | done |
 
-### Model B: wrist tremor / hand movement (PADS) [planned]
-- Load accel and gyro per task; extract tremor-band (4-6 Hz) power, amplitude, variability,
-  regularity; PD vs healthy (optional PD vs differential diagnosis).
-- Scripts: `20_pads_load.py`, `21_pads_features.py`, `22_pads_train.py`.
+### Model B: wrist tremor / hand movement (PADS) [blocked -- see note]
+- Download attempted 2026-10 and abandoned: this sandbox's network is heavily throttled
+  (~4-16 KB/s measured against physionet.org directly), making the 735MB bulk zip infeasible
+  here (13+ hours). Needs the USER to download locally (command in `data-README.md`) and place
+  the result in `data/raw_pads/`, or an explicit request to retry the slow in-sandbox download.
+- Plan once data exists: load accel and gyro per task; extract tremor-band (4-6 Hz) power,
+  amplitude, variability, regularity; PD vs healthy (optional PD vs differential diagnosis);
+  subject-grouped CV; repeat the leaky-vs-grouped comparison (mirror script 14).
+- Scripts (not yet written): `20_pads_load.py`, `21_pads_features.py`, `22_pads_train.py`
+  (NOTE: `20_fold_sensitivity.py` above already claimed the `20_` slot for the gait/voice
+  work -- renumber the PADS scripts, e.g. `21`-`23`, when starting this).
 
-### Model C: voice (UCI #301) [planned]
-- Use the 26 provided acoustic features (jitter, shimmer, pitch, pulses), 26 recordings per
-  subject. Compare recording-level vs subject-grouped CV to show the same leakage effect.
-- Scripts: `30_voice_load.py`, `31_voice_train.py`, `32_voice_leakage.py`.
+### Model C: voice (UCI #301) [done]
+- 26 provided acoustic features (jitter, shimmer, pitch, pulses), 40 subjects x 26 recordings
+  (train partition; test partition is PD-only, excluded from accuracy). Leaky-vs-grouped gap
+  3.8-15.2pts, significant for every classifier (Wilcoxon p<0.001); 100% of leaky-fold test
+  recordings share a subject with training (vs ~63% gait) -- the project's cleanest leakage
+  demo. SHAP done (pitch variability, jitter PPQ5, max pitch top drivers, matches the
+  PD-dysphonia literature). CAVEAT: a permutation test found the honest/grouped voice accuracy
+  is NOT statistically distinguishable from chance (p=0.1485, n=40) -- report voice as
+  evidence the leakage mechanism generalizes, not as a validated diagnostic result.
+- Scripts: `30_voice_load.py` (loader), `31_voice_leakage_comparison.py` (leaky vs grouped),
+  `32_voice_shap.py` (explainability).
 
-### Explainability and reporting [planned]
-- SHAP `TreeExplainer` per model: global importance plots and per-patient waterfall plots.
-- Features named clinically (stride-time CV, asymmetry, stance ratio, COP sway, tremor power,
-  jitter/shimmer).
-- Report: PD risk per modality and fused, top contributing features, one plain-language
-  sentence. Script: `40_shap_report.py` (gait binary model done; wrist and voice pending).
+### Explainability and reporting [done for gait + voice; wrist pending PADS]
+- SHAP `TreeExplainer` per model, out-of-fold: global importance plots and per-patient
+  waterfall plots. Features named clinically (stride-time CV, asymmetry, stance ratio, COP
+  sway, tremor power, jitter/shimmer).
+- Gait: binary (`40_shap_report.py`) and 4-class, plus a 5-feature compact-feature SHAP
+  variant for the clinician-facing story (`41_shap_4class_and_compact.py`). Voice:
+  `32_voice_shap.py`. Wrist (PADS): pending.
+- Patient report template: PD risk per modality, top contributing features, one
+  plain-language sentence -- `docs/patient_reports.md` (gait examples).
 
-### Late fusion [planned]
+### Late fusion [planned, blocked on PADS]
 - Calibrate each model's probability (Platt or isotonic, fit on validation data).
 - Combine by simple average or validation-AUC weights; never tune on test data.
-- Script: `50_fusion_demo.py`.
+- Script: `50_fusion_demo.py`. Needs at least gait + voice + wrist to be meaningful as a
+  three-modality demo; could be built as a two-modality (gait+voice) demo sooner if desired.
 
 ## 4. Evaluation rules (apply everywhere)
 - Subject-grouped `StratifiedGroupKFold`; no subject in both train and test; seed 42.

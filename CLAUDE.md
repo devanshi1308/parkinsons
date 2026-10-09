@@ -158,41 +158,48 @@ the numbering and style of existing ones (docstring header, pandas/sklearn, path
 `07_train_multi_scheme.py` loaders instead of duplicating them.
 
 ## Next steps (update this section as work lands — keep it current, not a historical log)
-In priority order:
-1. **PADS wrist model** (`20`-`22`, not started): download PADS (~1.4 GB, needs the user's
-   go-ahead first), read its metadata for true group counts (PD / differential dx / healthy —
-   unconfirmed, no finger-tapping task documented), extract tremor/movement features, run
-   subject-grouped CV, repeat the leaky-vs-grouped comparison (mirror `14_leakage_comparison.py`).
-2. **UCI speech voice model** (`30`-`32`, not started): load the 26 provided acoustic features,
-   subject-grouped CV, repeat the leaky-vs-grouped comparison.
-3. **Re-run the nested-CV correction (script 16 §1) for XGBoost/LightGBM too** — they were added
-   in §5 of the same script but not yet validated with nested selection, so their 83.8-84.5%/
-   50-52% numbers carry the same optimism risk already found and corrected for the sklearn models.
-4. **SHAP for the 4-class model** (`40_shap_report.py` currently only covers binary) and switch
-   its feature list to the 5-feature compact set from `16_model_improvements.py` §4 for the
-   clinician-facing report, instead of the ~200-feature raw-sensor list.
-5. **Review the Ju-cohort investigation output** (`11_investigate_ju_cohort.py`, run but never
-   read) and **find the missing 166th subject** (165 unique IDs in `features_v2.csv`/`features_v3.csv`
-   vs 166 documented).
-6. Late-fusion demo (`50_fusion_demo.py`, not started) — after B and C exist; demo only, no
-   fused-accuracy claim.
-7. Remaining figures: confusion matrix, ROC curves, VGRF/COP plots (leakage-gap and SHAP plots
-   are already done).
-8. Optional sliding-window LSTM (`13_lstm_windows.py`) — expected to underperform at 165
+Status as of 2026-10 (this list drifted out of sync with actual work for a few turns — items 2-5
+below were done but left marked "not started"; fixed now). Done since the original list was
+written: UCI voice (load + leakage + SHAP), nested-CV correction extended to XGBoost/LightGBM,
+SHAP for 4-class + compact-feature SHAP, Ju-cohort review + bug fix + missing-subject explanation,
+statistical significance/permutation/capacity-table/fold-sensitivity checks, the combined
+gait+voice headline figure, and a first Methods/Results draft
+(`docs/paper_draft_methods_results.md`).
+
+In priority order, what's actually left:
+1. **PADS wrist model** (`20`-`22` script slots, not started): download attempted this session
+   and ABANDONED — this sandbox's network is heavily throttled (~4-16 KB/s measured directly
+   against physionet.org), so the 735MB bulk zip would take 13+ hours. Needs the USER to download
+   on their own machine (`curl -L -o data/raw_pads/pads.zip
+   "https://physionet.org/content/parkinsons-disease-smartwatch/get-zip/1.0.0/"`, documented in
+   data-README.md) and drop it in `data/raw_pads/`, or explicitly ask to retry the slow in-sandbox
+   download. Once present: read metadata for true group counts (PD / differential dx / healthy —
+   unconfirmed, no finger-tapping task documented), extract tremor/movement features, subject-
+   grouped CV, repeat the leaky-vs-grouped comparison (mirror `14_leakage_comparison.py`).
+2. **Late-fusion demo** (`50_fusion_demo.py`, not started) — needs PADS (item 1) first; demo
+   only, no fused-accuracy claim.
+3. **Finish the paper draft**: `docs/paper_draft_methods_results.md` has Methods + Results with
+   full statistical backing. Still needed: Abstract, Introduction, Related Work (raw material
+   exists in `docs/project_overview.pdf` §3, needs trimming into prose), Discussion, Conclusion.
+   Update the draft's PADS limitation note once/if PADS data exists.
+4. Remaining figures: confusion matrix, ROC curves, VGRF/COP plots (leakage-gap, combined
+   gait+voice headline figure, and all SHAP plots are already done).
+5. Optional sliding-window LSTM (`13_lstm_windows.py`) — expected to underperform at 165
    subjects; low priority.
-9. Paper writing (Phase 5) and submission prep (Phase 6) — not started; do after B/C exist so the
-   generalization section has real numbers, not placeholders.
-10. `docs/project_overview.pdf` is now stale (predates features v3, nested-CV correction, SHAP,
-    baseline comparison, model-improvement follow-ups) — regenerate before sharing it again.
+6. `docs/project_overview.pdf` is stale (predates features v3, nested-CV correction, SHAP,
+   baseline comparison, model-improvement follow-ups, voice, statistical robustness) —
+   regenerate before sharing it again, or point people to the new Methods/Results draft instead.
+7. Phase 6 submission prep (venue, formatting, similarity check) — after the draft is complete.
 
 Always keep this file in sync: update "Measured results" below and this list whenever a script
 runs or a decision changes, in the same turn as the work — don't let it drift to a later cleanup.
 
 ## Open items / known gaps (longer-lived than "next steps" above)
-- PADS/UCI speech not downloaded; their group counts, licensing and feature sets are unconfirmed.
+- PADS not downloaded (network-throttled in this sandbox, see item 1 above); its group counts,
+  licensing and feature set remain unconfirmed. UCI voice IS downloaded and fully analyzed.
 - `docs/paper.pdf` copyright status in a public repo is still unconfirmed.
 - `prompt.md`/`architecture.md` current-state summaries should be checked against this file
-  periodically — they've needed manual re-sync more than once already.
+  periodically — they've needed manual re-sync more than once already (fixed again 2026-10).
 
 ## Style for answers
 Concise, recommendation first, no exhaustive option surveys. Use they/them for people whose

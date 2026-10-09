@@ -44,7 +44,7 @@
 - [x] SHAP global + per-patient explanations, out-of-fold, clinical names (`40_shap_report.py`)
 - [x] SHAP on the compact 5-feature set (binary) and SHAP for the 4-class model, per-stage top
       features (`41_shap_4class_and_compact.py`)
-- [ ] PADS wrist model: download, check group counts, features, grouped CV, leaky-vs-grouped (`20`-`22`)
+- [ ] PADS wrist model: BLOCKED -- in-sandbox download abandoned (network too throttled, ~4-16 KB/s measured); needs user to download locally (see data-README.md); then group counts, features, grouped CV, leaky-vs-grouped
 - [x] Model-improvement follow-ups: nested selection (de-biased), subject-level aggregation,
       ordinal vs multiclass, compact feature set, XGBoost/LightGBM (`16_model_improvements.py`,
       `docs/model_improvements.md`)
@@ -52,7 +52,8 @@
 - [x] UCI speech voice model: downloaded, loaded, grouped CV, leaky-vs-grouped, SHAP
       (`30_voice_load.py`, `31_voice_leakage_comparison.py`, `32_voice_shap.py`)
 - [ ] Late-fusion demo + patient report (`50_fusion_demo.py`); demo only, no fused accuracy claim
-- [ ] Figures: leakage gap (done in 14), confusion matrix, ROC, VGRF/COP plots, SHAP plots
+- [x] Combined gait+voice headline leakage figure (`19_combined_leakage_figure.py`)
+- [ ] Remaining figures: confusion matrix, ROC, VGRF/COP plots (leakage gap and all SHAP plots already done)
 
 - [x] Statistical robustness: paired significance (Wilcoxon + Cohen's d, 20 seeds), permutation
       (chance-level) test, capacity-vs-gap table, for both gait and voice (`18_statistical_robustness.py`,
@@ -62,6 +63,7 @@
       (`20_fold_sensitivity.py`, `19_combined_leakage_figure.py`, `docs/figures/combined_leakage_gap.png`)
 
 ## Phase 5 — Paper writing
+- [x] Methods + Results drafted with full numeric/statistical backing (`docs/paper_draft_methods_results.md`)
 - [ ] Abstract
 - [ ] Introduction + motivation
 - [ ] Related work (baseline paper + others from Table 9)

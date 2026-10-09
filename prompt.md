@@ -40,10 +40,18 @@ Different people in each dataset: never merge rows across them.
 7. Outputs are research screening estimates, not diagnoses.
 8. Do not fabricate numbers, citations or dataset facts; say when something is unverified.
 
-## Current state
-Done: cleaning, features v1/v2, DT/SVM/Bagging/NB, 4-class/3-class/binary, full metrics,
-imbalance experiments, per-cohort analysis. Planned: features v3, RF/XGBoost/LR, SHAP,
-PADS and voice models, fusion demo, paper writing.
+## Current state (2026-10)
+Done: cleaning, features v1/v2/v3, DT/SVM/Bagging/NB plus RF/ExtraTrees/HistGB/LR/voting/
+XGBoost/LightGBM, 4-class/3-class/binary, full metrics, imbalance experiments, per-cohort
+analysis (+ Ju-cohort bug fix and explanation), baseline-paper comparison, nested-CV
+de-biasing (incl. boosting), statistical significance/permutation/capacity-table/fold-
+sensitivity checks, SHAP (gait binary + 4-class + compact-feature, voice), UCI voice modality
+(leakage comparison + SHAP) fully done, combined gait+voice headline figure, first Methods/
+Results draft (`docs/paper_draft_methods_results.md`).
+Not done: PADS (blocked -- this sandbox's network is too throttled to download it; needs the
+user to fetch it locally, see data-README.md), late-fusion demo, remaining figures (confusion
+matrix/ROC/VGRF plots), optional LSTM, Abstract/Intro/Related Work/Discussion/Conclusion,
+submission prep. See CLAUDE.md "Next steps" for the current priority order.
 
 ## How to work
 - Follow the numbered script convention in `scripts/`; run from the project root.
