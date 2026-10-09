@@ -1,0 +1,6 @@
+feature,clinical_name,mean_abs_shap
+L5_skew,Sensor 5 (left foot) force skewness,0.12566538310311348
+speed_mps,Walking speed,0.10401117761979783
+L_cop_y_sd,"Centre-of-pressure front-back sway, left foot",0.06481799585084172
+L7_median,Sensor 7 (left foot) median force,0.05797596598299418
+L6_skew,Sensor 6 (left foot) force skewness,0.054634651263601605

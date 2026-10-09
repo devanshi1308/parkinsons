@@ -84,9 +84,14 @@ PhysioNet "Gait in Parkinson's Disease" (gaitpdb v1.0.0)
   (Healthy 73 / Mild 55 / Moderate 28 / Severe 10 at subject level)
 
 ## Known limitation (disclosed, not hidden)
-Step length, stride length, and gait speed (reported in the original paper) require spatial/
-distance capture not present in this VGRF-only public dataset — left as NaN / excluded.
-COP features partially substitute with real spatial information derived from sensor geometry.
+The VGRF signals contain no distance data, so step length and stride length cannot be measured
+directly. CORRECTION (2026-09): `demographics.xls` does provide clinician-timed usual-pace walking
+speed (`Speed_01`, m/s, 165 of 166 subjects). Gait speed is therefore available as a subject-level
+feature, and stride/step length are reported as DERIVED ESTIMATES (speed x measured stride time),
+never as measured distances. Speed applies to the subject's trial 01 and is used for all of their
+trials. UPDRS, UPDRSM, TUAG and H&Y are clinical severity scores and are deliberately NOT used as
+features (label proxies). Height is normalised (metres for Ga, centimetres for Ju/Si).
+COP features add real spatial information derived from sensor geometry.
 
 ## Datasets (final set)
 | Model | Dataset | Subjects | Signal | Access |

@@ -16,7 +16,7 @@
 ## Phase 2 — Feature extraction (reproducing baseline)
 - [x] Statistical features: mean, median, SD per sensor (`03_extract_features.py`); v2 adds min/max/range/IQR/skew/kurtosis
 - [x] Spatiotemporal/kinematic features: stance/swing/stride time, ratios, cadence, stride-time CV, symmetry, COP (`03_extract_features_v2.py`)
-- [ ] Step length, stride length, speed: not possible (no spatial data); optional height-based proxies, labelled as proxies
+- [x] Speed from demographics (`Speed_01`); stride/step length as derived estimates (speed x stride time), labelled as estimates (`03_extract_features_v3.py`)
 - [x] Feature selection: variance + correlation (|r|>0.95) filter (`07_train_multi_scheme.py`)
 - [x] Merge features + H&Y labels (done in-memory in the training scripts; no separate `master_dataset.csv`)
 
@@ -25,7 +25,7 @@
 - [x] Train DT, SVM, Ensemble (Bagging), Bayes classifiers (`05`, `07`)
 - [x] Repeat for kinematic features (v2 feature set)
 - [x] Compute accuracy, sensitivity, specificity, PPV, NPV, F-score, confusion matrix, AUC (`08_full_metrics.py`); ROC plots not yet made
-- [ ] Compare against paper's reported numbers (Table 5–9) — confirm pipeline is correctly reproduced
+- [x] Compare against paper's reported numbers (Table 8-9) (`15_baseline_comparison.py`, `docs/baseline_comparison.md`) — we do NOT reproduce the paper's 99.4%; see result below
 
 ## Phase 4 — Novel contribution (locked in — see rules.md decision log)
 - [x] Identify and lock in the specific gap/angle
@@ -35,17 +35,28 @@
 
 - [x] Class imbalance experiments (`09_class_imbalance.py`), per-cohort and leave-one-cohort-out (`10`, `11`)
 - [x] Leaky vs grouped comparison, 5 seeds, in-fold check, leak audit (`14_leakage_comparison.py`)
-- [ ] Review Ju cohort investigation output (`11_investigate_ju_cohort.py`)
+- [x] Review Ju cohort investigation output; fixed a demographics-merge bug in the script (`11_investigate_ju_cohort.py`)
 
 ## Phase 4b — Extensions (planned)
-- [ ] Gait features v3: demographics, FFT/wavelet, regularity (autocorrelation, entropy, DFA), double support (`03_extract_features_v3.py`)
-- [ ] More models: Random Forest, XGBoost/LightGBM, logistic regression, stacking (`12_train_models_v3.py`)
+- [x] Gait features v3: demographics, speed, spectral, wavelet, regularity (autocorrelation, sample entropy), double support (`03_extract_features_v3.py`); DFA not implemented
+- [x] More models: Random Forest, Extra Trees, HistGradientBoosting, logistic regression, soft voting; 5 feature sets x 9 models x 3 schemes x 3 seeds (`12_train_models_v3.py`; XGBoost/LightGBM skipped, need libomp)
 - [ ] Optional sliding-window LSTM with augmentation, grouped CV (`13_lstm_windows.py`)
-- [ ] SHAP global + per-patient explanations, clinically named features (`40_shap_report.py`)
+- [x] SHAP global + per-patient explanations, out-of-fold, clinical names (`40_shap_report.py`)
+- [x] SHAP on the compact 5-feature set (binary) and SHAP for the 4-class model, per-stage top
+      features (`41_shap_4class_and_compact.py`)
 - [ ] PADS wrist model: download, check group counts, features, grouped CV, leaky-vs-grouped (`20`-`22`)
-- [ ] UCI speech voice model: features as provided, grouped CV, leaky-vs-grouped (`30`-`32`)
+- [x] Model-improvement follow-ups: nested selection (de-biased), subject-level aggregation,
+      ordinal vs multiclass, compact feature set, XGBoost/LightGBM (`16_model_improvements.py`,
+      `docs/model_improvements.md`)
+- [x] Nested-CV selection extended to include XGBoost/LightGBM as candidates (`17_nested_with_boosting.py`)
+- [x] UCI speech voice model: downloaded, loaded, grouped CV, leaky-vs-grouped, SHAP
+      (`30_voice_load.py`, `31_voice_leakage_comparison.py`, `32_voice_shap.py`)
 - [ ] Late-fusion demo + patient report (`50_fusion_demo.py`); demo only, no fused accuracy claim
 - [ ] Figures: leakage gap (done in 14), confusion matrix, ROC, VGRF/COP plots, SHAP plots
+
+- [x] Statistical robustness: paired significance (Wilcoxon + Cohen's d, 20 seeds), permutation
+      (chance-level) test, capacity-vs-gap table, for both gait and voice (`18_statistical_robustness.py`,
+      `docs/statistical_robustness.md`)
 
 ## Phase 5 — Paper writing
 - [ ] Abstract

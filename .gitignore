@@ -1,11 +1,14 @@
-# Data (large, regenerable, and PhysioNet's license requires separate attribution
-# rather than redistribution — see data/README.md instead of committing raw data)
+# Data: raw and intermediate files are large, regenerable, and (for gaitpdb/PADS) PhysioNet's
+# license requires separate attribution rather than redistribution — see data-README.md instead
+# of committing raw data. data/processed/*.csv IS tracked: these are small, reproducible
+# results/feature tables meant to ship with the repo (same as features.csv/features_v2.csv).
 data/raw/
 data/raw_sorted/
+data/raw_pads/
+data/raw_voice/
 data/interim/
-data/processed/*.csv
 
-# Keep the folder structure visible in git even though contents are ignored
+# Keep the folder structure visible in git even though raw/interim contents are ignored
 !data/raw/.gitkeep
 !data/raw_sorted/.gitkeep
 !data/interim/.gitkeep
@@ -21,8 +24,3 @@ __pycache__/
 # Editor/OS cruft
 .vscode/
 *.swp
-
-data/raw_pads/
-data/raw_voice/
-!data/processed/leakage_comparison.csv
-!data/processed/leakage_audit.csv

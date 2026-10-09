@@ -38,10 +38,11 @@ def check_demographics(df_features):
         demo_path = RAW_DIR / "demographics.xlsx"
     demo = pd.read_excel(demo_path)
 
-    demo["subject_id"] = demo.apply(
-        lambda r: f"{str(r['Study']).strip()}{str(r['Group']).strip()}{str(r['Subjnum']).strip().zfill(2)}",
-        axis=1,
-    )
+    # BUGFIX (2026-10): demo['Group'] is 'PD'/'CO', but subject_id (and the raw filenames) use
+    # 'Pt'/'Co'. The original f-string built IDs like "GaPD03", which never matched anything, so
+    # this merge silently produced all-NaN demographics. demo['ID'] already has the right format
+    # (e.g. "GaPt03") and should be used directly instead of reconstructing it.
+    demo["subject_id"] = demo["ID"]
 
     merged = df_features[["subject_id", "cohort"]].drop_duplicates().merge(demo, on="subject_id", how="left")
 

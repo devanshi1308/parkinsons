@@ -34,8 +34,9 @@ Different people in each dataset: never merge rows across them.
 3. Windows or recordings from one subject stay in one fold.
 4. Report accuracy, macro-F1, sensitivity, specificity, AUC, with fold variance.
 5. Do not claim fused-model accuracy (no paired data); call fusion a demo.
-6. Do not invent step length, stride length or gait speed; gaitpdb has no spatial data.
-   Height-based proxies must be labelled as proxies.
+6. Gait speed comes from demographics.xls (`Speed_01`); stride/step length are derived estimates
+   (speed x stride time) and must be labelled as estimates. The VGRF files have no distance data.
+   Never use UPDRS, UPDRSM, TUAG or H&Y as features.
 7. Outputs are research screening estimates, not diagnoses.
 8. Do not fabricate numbers, citations or dataset facts; say when something is unverified.
 

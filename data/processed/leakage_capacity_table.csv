@@ -1,0 +1,17 @@
+scheme,classifier,accuracy_gap_pts,modality,capacity_rank
+3class,Bayes (GaussianNB),9.2236559139785,gait,0
+3class,SVM,25.83010752688171,gait,1
+3class,Decision Tree,26.20430107526882,gait,2
+3class,Ensemble (Bagging),31.62150537634408,gait,3
+4class,Bayes (GaussianNB),15.14226700691399,gait,0
+4class,SVM,29.54281227507688,gait,1
+4class,Decision Tree,26.573303670745275,gait,2
+4class,Ensemble (Bagging),29.787301795022792,gait,3
+binary,Bayes (GaussianNB),1.3935483870967769,gait,0
+binary,SVM,10.722580645161283,gait,1
+binary,Decision Tree,7.808602150537636,gait,2
+binary,Ensemble (Bagging),9.63225806451613,gait,3
+binary,Bayes (GaussianNB),3.807692307692312,voice,0
+binary,SVM,8.673076923076916,voice,1
+binary,Decision Tree,10.36538461538462,voice,2
+binary,Ensemble (Bagging),15.230769230769226,voice,3

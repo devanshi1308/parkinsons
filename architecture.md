@@ -59,8 +59,8 @@ flowchart LR
 | Full metrics (TP/TN/FP/FN, sens, spec, PPV, NPV, F, AUC) | `08_full_metrics.py` | done |
 | Class imbalance (weights, SMOTE) | `09_class_imbalance.py` | done |
 | Per-cohort and leave-one-cohort-out | `10_per_cohort_analysis.py`, `11_investigate_ju_cohort.py` | done |
-| Features v3 (demographics, FFT/wavelet, regularity, double support) | `03_extract_features_v3.py` | planned |
-| RF, XGBoost, LR, stacking | `12_train_models_v3.py` | planned |
+| Features v3 (demographics, speed, FFT/wavelet, regularity, double support) | `03_extract_features_v3.py` | done |
+| RF, Extra Trees, HistGradientBoosting, LR, soft voting (feature-family ablation) | `12_train_models_v3.py` | done |
 | Sliding-window LSTM (optional) | `13_lstm_windows.py` | planned |
 | Leaky vs grouped comparison + figure + leak audit | `14_leakage_comparison.py` | done |
 
@@ -79,7 +79,7 @@ flowchart LR
 - Features named clinically (stride-time CV, asymmetry, stance ratio, COP sway, tremor power,
   jitter/shimmer).
 - Report: PD risk per modality and fused, top contributing features, one plain-language
-  sentence. Script: `40_shap_report.py`.
+  sentence. Script: `40_shap_report.py` (gait binary model done; wrist and voice pending).
 
 ### Late fusion [planned]
 - Calibrate each model's probability (Platt or isotonic, fit on validation data).

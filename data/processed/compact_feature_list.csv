@@ -1,0 +1,203 @@
+feature,clinical_name,selected_fraction_of_folds
+L5_skew,Sensor 5 (left foot) force skewness,1.0
+speed_mps,Walking speed,1.0
+L_cop_y_sd,"Centre-of-pressure front-back sway, left foot",0.9
+L7_median,Sensor 7 (left foot) median force,0.7
+L6_skew,Sensor 6 (left foot) force skewness,0.7
+R_swing_time,"Swing time, right foot",0.3
+R7_skew,Sensor 7 (right foot) force skewness,0.3
+L7_skew,Sensor 7 (left foot) force skewness,0.3
+L_swing_time,"Swing time, left foot",0.2
+stride_length_est_m,Stride length (estimated from speed),0.1
+R_cop_y_sd,"Centre-of-pressure front-back sway, right foot",0.1
+step_length_est_m,Step length (estimated),0.1
+R8_max,Sensor 8 (right foot) peak force,0.0
+R7_iqr,Sensor 7 (right foot) force spread (IQR),0.0
+R7_kurtosis,Sensor 7 (right foot) force kurtosis,0.0
+R8_mean,Sensor 8 (right foot) mean force,0.0
+R8_median,Sensor 8 (right foot) median force,0.0
+R8_sd,Sensor 8 (right foot) force variability (SD),0.0
+R8_min,Sensor 8 (right foot) minimum force,0.0
+R8_kurtosis,Sensor 8 (right foot) force kurtosis,0.0
+R8_range,Sensor 8 (right foot) force range,0.0
+R8_iqr,Sensor 8 (right foot) force spread (IQR),0.0
+R8_skew,Sensor 8 (right foot) force skewness,0.0
+R7_max,Sensor 7 (right foot) peak force,0.0
+L_stance_time,"Stance time, left foot",0.0
+L_stride_time,"Stride time, left foot",0.0
+L_stride_time_cv,"Stride-time variability (CV), left foot",0.0
+R_stance_time,"Stance time, right foot",0.0
+R7_range,Sensor 7 (right foot) force range,0.0
+L1_mean,Sensor 1 (left foot) mean force,0.0
+R7_min,Sensor 7 (right foot) minimum force,0.0
+R5_skew,Sensor 5 (right foot) force skewness,0.0
+R4_iqr,Sensor 4 (right foot) force spread (IQR),0.0
+R4_skew,Sensor 4 (right foot) force skewness,0.0
+R4_kurtosis,Sensor 4 (right foot) force kurtosis,0.0
+R5_mean,Sensor 5 (right foot) mean force,0.0
+R5_median,Sensor 5 (right foot) median force,0.0
+R5_sd,Sensor 5 (right foot) force variability (SD),0.0
+R5_min,Sensor 5 (right foot) minimum force,0.0
+R5_max,Sensor 5 (right foot) peak force,0.0
+R5_range,Sensor 5 (right foot) force range,0.0
+R5_iqr,Sensor 5 (right foot) force spread (IQR),0.0
+R5_kurtosis,Sensor 5 (right foot) force kurtosis,0.0
+R7_sd,Sensor 7 (right foot) force variability (SD),0.0
+R6_mean,Sensor 6 (right foot) mean force,0.0
+R6_median,Sensor 6 (right foot) median force,0.0
+R6_sd,Sensor 6 (right foot) force variability (SD),0.0
+R6_min,Sensor 6 (right foot) minimum force,0.0
+R6_max,Sensor 6 (right foot) peak force,0.0
+R6_range,Sensor 6 (right foot) force range,0.0
+R6_iqr,Sensor 6 (right foot) force spread (IQR),0.0
+R6_skew,Sensor 6 (right foot) force skewness,0.0
+R6_kurtosis,Sensor 6 (right foot) force kurtosis,0.0
+R7_mean,Sensor 7 (right foot) mean force,0.0
+R7_median,Sensor 7 (right foot) median force,0.0
+stance_time_symmetry_index,Stance-time asymmetry (L vs R),0.0
+R_stride_time,"Stride time, right foot",0.0
+regularity_ratio,Stride/step regularity ratio,0.0
+spec_R_centroid_hz,Spectral centroid hz (right foot),0.0
+wav_R_approx_relenergy,Wavelet approx energy share (right foot),0.0
+wav_R_detail5_relenergy,Wavelet detail5 energy share (right foot),0.0
+wav_R_detail4_relenergy,Wavelet detail4 energy share (right foot),0.0
+wav_R_detail3_relenergy,Wavelet detail3 energy share (right foot),0.0
+wav_R_detail2_relenergy,Wavelet detail2 energy share (right foot),0.0
+wav_R_detail1_relenergy,Wavelet detail1 energy share (right foot),0.0
+step_regularity,Step regularity,0.0
+stride_regularity,Stride regularity,0.0
+stride_time_sd,Stride-time variability (SD),0.0
+spec_R_relpower_high_3_10,Spectral relpower high 3 10 (right foot),0.0
+stride_time_sampen,Stride-time irregularity (sample entropy),0.0
+double_support_pct,Double-support share of walking time,0.0
+L_stance_pct_time,"Time in stance, left foot",0.0
+R_stance_pct_time,"Time in stance, right foot",0.0
+age,Age,0.0
+sex_male,Sex (male),0.0
+height,Height,0.0
+weight,Weight,0.0
+bmi,BMI,0.0
+spec_R_entropy,Spectral entropy (right foot),0.0
+spec_R_relpower_mid_1p5_3,Spectral relpower mid 1p5 3 (right foot),0.0
+R_stride_time_cv,"Stride-time variability (CV), right foot",0.0
+spec_L_relpower_mid_1p5_3,Spectral relpower mid 1p5 3 (left foot),0.0
+R4_max,Sensor 4 (right foot) peak force,0.0
+stride_time_symmetry_index,Stride-time asymmetry (L vs R),0.0
+L_cop_x_sd,"Centre-of-pressure side-to-side sway, left foot",0.0
+L_cop_path_length,"Centre-of-pressure path length, left foot",0.0
+R_cop_x_sd,"Centre-of-pressure side-to-side sway, right foot",0.0
+R_cop_path_length,"Centre-of-pressure path length, right foot",0.0
+cadence_steps_per_min,Cadence,0.0
+spec_L_dom_freq_hz,Spectral dom freq hz (left foot),0.0
+spec_L_relpower_low_0p3_1p5,Spectral relpower low 0p3 1p5 (left foot),0.0
+spec_L_relpower_high_3_10,Spectral relpower high 3 10 (left foot),0.0
+spec_R_relpower_low_0p3_1p5,Spectral relpower low 0p3 1p5 (right foot),0.0
+spec_L_entropy,Spectral entropy (left foot),0.0
+spec_L_centroid_hz,Spectral centroid hz (left foot),0.0
+wav_L_approx_relenergy,Wavelet approx energy share (left foot),0.0
+wav_L_detail5_relenergy,Wavelet detail5 energy share (left foot),0.0
+wav_L_detail4_relenergy,Wavelet detail4 energy share (left foot),0.0
+wav_L_detail3_relenergy,Wavelet detail3 energy share (left foot),0.0
+wav_L_detail2_relenergy,Wavelet detail2 energy share (left foot),0.0
+wav_L_detail1_relenergy,Wavelet detail1 energy share (left foot),0.0
+spec_R_dom_freq_hz,Spectral dom freq hz (right foot),0.0
+R4_range,Sensor 4 (right foot) force range,0.0
+R4_sd,Sensor 4 (right foot) force variability (SD),0.0
+R4_min,Sensor 4 (right foot) minimum force,0.0
+L3_skew,Sensor 3 (left foot) force skewness,0.0
+L4_mean,Sensor 4 (left foot) mean force,0.0
+L4_median,Sensor 4 (left foot) median force,0.0
+L4_sd,Sensor 4 (left foot) force variability (SD),0.0
+L4_min,Sensor 4 (left foot) minimum force,0.0
+L4_max,Sensor 4 (left foot) peak force,0.0
+L4_range,Sensor 4 (left foot) force range,0.0
+L4_iqr,Sensor 4 (left foot) force spread (IQR),0.0
+L4_skew,Sensor 4 (left foot) force skewness,0.0
+L4_kurtosis,Sensor 4 (left foot) force kurtosis,0.0
+L5_mean,Sensor 5 (left foot) mean force,0.0
+L5_median,Sensor 5 (left foot) median force,0.0
+L5_sd,Sensor 5 (left foot) force variability (SD),0.0
+L5_min,Sensor 5 (left foot) minimum force,0.0
+L5_max,Sensor 5 (left foot) peak force,0.0
+L5_range,Sensor 5 (left foot) force range,0.0
+L5_iqr,Sensor 5 (left foot) force spread (IQR),0.0
+L5_kurtosis,Sensor 5 (left foot) force kurtosis,0.0
+L6_mean,Sensor 6 (left foot) mean force,0.0
+L6_median,Sensor 6 (left foot) median force,0.0
+L6_sd,Sensor 6 (left foot) force variability (SD),0.0
+L6_min,Sensor 6 (left foot) minimum force,0.0
+L3_kurtosis,Sensor 3 (left foot) force kurtosis,0.0
+L3_iqr,Sensor 3 (left foot) force spread (IQR),0.0
+L1_median,Sensor 1 (left foot) median force,0.0
+L3_range,Sensor 3 (left foot) force range,0.0
+L1_sd,Sensor 1 (left foot) force variability (SD),0.0
+L1_min,Sensor 1 (left foot) minimum force,0.0
+L1_max,Sensor 1 (left foot) peak force,0.0
+L1_range,Sensor 1 (left foot) force range,0.0
+L1_iqr,Sensor 1 (left foot) force spread (IQR),0.0
+L1_skew,Sensor 1 (left foot) force skewness,0.0
+L1_kurtosis,Sensor 1 (left foot) force kurtosis,0.0
+L2_mean,Sensor 2 (left foot) mean force,0.0
+L2_median,Sensor 2 (left foot) median force,0.0
+L2_sd,Sensor 2 (left foot) force variability (SD),0.0
+L2_min,Sensor 2 (left foot) minimum force,0.0
+L2_max,Sensor 2 (left foot) peak force,0.0
+L2_range,Sensor 2 (left foot) force range,0.0
+L2_iqr,Sensor 2 (left foot) force spread (IQR),0.0
+L2_skew,Sensor 2 (left foot) force skewness,0.0
+L2_kurtosis,Sensor 2 (left foot) force kurtosis,0.0
+L3_mean,Sensor 3 (left foot) mean force,0.0
+L3_median,Sensor 3 (left foot) median force,0.0
+L3_sd,Sensor 3 (left foot) force variability (SD),0.0
+L3_min,Sensor 3 (left foot) minimum force,0.0
+L3_max,Sensor 3 (left foot) peak force,0.0
+L6_max,Sensor 6 (left foot) peak force,0.0
+L6_range,Sensor 6 (left foot) force range,0.0
+L6_iqr,Sensor 6 (left foot) force spread (IQR),0.0
+L6_kurtosis,Sensor 6 (left foot) force kurtosis,0.0
+R1_kurtosis,Sensor 1 (right foot) force kurtosis,0.0
+R2_mean,Sensor 2 (right foot) mean force,0.0
+R2_median,Sensor 2 (right foot) median force,0.0
+R2_sd,Sensor 2 (right foot) force variability (SD),0.0
+R2_min,Sensor 2 (right foot) minimum force,0.0
+R2_max,Sensor 2 (right foot) peak force,0.0
+R2_range,Sensor 2 (right foot) force range,0.0
+R2_iqr,Sensor 2 (right foot) force spread (IQR),0.0
+R2_skew,Sensor 2 (right foot) force skewness,0.0
+R2_kurtosis,Sensor 2 (right foot) force kurtosis,0.0
+R3_mean,Sensor 3 (right foot) mean force,0.0
+R3_median,Sensor 3 (right foot) median force,0.0
+R3_sd,Sensor 3 (right foot) force variability (SD),0.0
+R3_min,Sensor 3 (right foot) minimum force,0.0
+R3_max,Sensor 3 (right foot) peak force,0.0
+R3_range,Sensor 3 (right foot) force range,0.0
+R3_iqr,Sensor 3 (right foot) force spread (IQR),0.0
+R3_skew,Sensor 3 (right foot) force skewness,0.0
+R3_kurtosis,Sensor 3 (right foot) force kurtosis,0.0
+R4_mean,Sensor 4 (right foot) mean force,0.0
+R4_median,Sensor 4 (right foot) median force,0.0
+R1_skew,Sensor 1 (right foot) force skewness,0.0
+R1_iqr,Sensor 1 (right foot) force spread (IQR),0.0
+R1_range,Sensor 1 (right foot) force range,0.0
+L8_sd,Sensor 8 (left foot) force variability (SD),0.0
+L7_mean,Sensor 7 (left foot) mean force,0.0
+L7_sd,Sensor 7 (left foot) force variability (SD),0.0
+L7_min,Sensor 7 (left foot) minimum force,0.0
+L7_max,Sensor 7 (left foot) peak force,0.0
+L7_range,Sensor 7 (left foot) force range,0.0
+L7_iqr,Sensor 7 (left foot) force spread (IQR),0.0
+L7_kurtosis,Sensor 7 (left foot) force kurtosis,0.0
+L8_mean,Sensor 8 (left foot) mean force,0.0
+L8_median,Sensor 8 (left foot) median force,0.0
+L8_min,Sensor 8 (left foot) minimum force,0.0
+R1_max,Sensor 1 (right foot) peak force,0.0
+L8_max,Sensor 8 (left foot) peak force,0.0
+L8_range,Sensor 8 (left foot) force range,0.0
+L8_iqr,Sensor 8 (left foot) force spread (IQR),0.0
+L8_skew,Sensor 8 (left foot) force skewness,0.0
+L8_kurtosis,Sensor 8 (left foot) force kurtosis,0.0
+R1_mean,Sensor 1 (right foot) mean force,0.0
+R1_median,Sensor 1 (right foot) median force,0.0
+R1_sd,Sensor 1 (right foot) force variability (SD),0.0
+R1_min,Sensor 1 (right foot) minimum force,0.0
+stride_length_over_height,Stride length relative to height (estimated),0.0

@@ -33,12 +33,22 @@ These are not downloaded yet. Place each in its own folder so they never mix wit
 - After download, read the metadata/patient files to confirm the per-group counts
   (PD / differential diagnosis / healthy) before writing the loader.
 
-### UCI Parkinson's Speech with Multiple Types of Sound Recordings (voice, Model C)
+### UCI Parkinson's Speech with Multiple Types of Sound Recordings (voice, Model C) -- DONE
 - Page: https://archive.ics.uci.edu/dataset/301/parkinson+speech+dataset+with+multiple+types+of+Audio+recordings
 - CC BY 4.0. Column 1 is the subject ID; 26 acoustic features per recording, no raw audio.
 - Training set: 20 PD + 20 healthy, 26 recordings each. Test set: 28 PD only (no controls),
   so use the training set with subject-grouped CV.
-- Download into `data/raw_voice/` (zip from the page above, or `pip install ucimlrepo`).
+- Downloaded and extracted with:
+  ```
+  mkdir -p data/raw_voice
+  curl -sL -o data/raw_voice/uci301.zip \
+    "https://archive.ics.uci.edu/static/public/301/parkinson+speech+dataset+with+multiple+types+of+sound+recordings.zip"
+  cd data/raw_voice && unzip -o uci301.zip   # contains a .rar, not plain txt files
+  brew install unar                          # one-time; unzip can't open .rar
+  unar Parkinson_Multiple_Sound_Recording.rar
+  ```
+  This produces `data/raw_voice/Parkinson_Multiple_Sound_Recording/{train_data.txt,test_data.txt}`.
+- Then: `python scripts/30_voice_load.py` to build `data/processed/voice_features.csv`.
 
 Note: these three datasets contain different people. Never merge rows across them.
 Keep `data/raw_pads/` and `data/raw_voice/` out of git (add to `.gitignore`).

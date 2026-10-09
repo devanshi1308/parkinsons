@@ -1,0 +1,27 @@
+feature,clinical_name,mean_abs_shap
+pitch_sd,Pitch variability (SD),0.035102527733022304
+jitter_ppq5,Jitter (PPQ5),0.02235413284479073
+pitch_max,Maximum pitch,0.02219971746016571
+frac_unvoiced,Fraction of unvoiced frames,0.0211178516182025
+shimmer_apq11,Shimmer (APQ11),0.020852577202337422
+jitter_rap,Jitter (RAP),0.020001778803031403
+degree_voice_breaks,Degree of voice breaks,0.018363751656866368
+pitch_median,Median pitch (F0),0.018246359451152817
+jitter_ddp,Jitter (DDP),0.01739657661641525
+jitter_local_abs,"Jitter (local, absolute)",0.017023916281919713
+htn,Harmonics-to-noise ratio (HTN),0.013909900646823929
+shimmer_local,Shimmer (local) - amplitude variation,0.012530041623739562
+jitter_local,Jitter (local) - pitch-period variation,0.012519810111845437
+shimmer_local_db,"Shimmer (local, dB)",0.012447757136926859
+ac,Autocorrelation (AC),0.012124614616339627
+pitch_mean,Mean pitch (F0),0.011607696068831354
+period_mean,Mean pitch period,0.011141493198815834
+n_periods,Number of pitch periods,0.011060245112169135
+period_sd,Pitch-period variability (SD),0.010162609301406802
+pitch_min,Minimum pitch,0.009885559356203008
+n_pulses,Number of glottal pulses,0.009761510622439908
+shimmer_apq5,Shimmer (APQ5),0.009733830779436514
+nth,Noise-to-harmonics ratio (NTH),0.007828640967459338
+shimmer_dda,Shimmer (DDA),0.0060969429081369365
+shimmer_apq3,Shimmer (APQ3),0.006046104497966111
+n_voice_breaks,Number of voice breaks,0.003693279680909965

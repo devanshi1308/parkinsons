@@ -63,9 +63,11 @@ Different people in each dataset: never merge rows across them. Raw data is git-
   binary Healthy vs PD. Severe (10 subjects) is effectively unlearnable (F1 ~0-0.13); state this.
 
 **Features**
-- Step length, stride length, gait speed excluded (gaitpdb has no spatial data; cannot be filled
-  from other datasets because they are different people). Height-based proxies are allowed only
-  if labelled as proxies.
+- Correction: gait speed IS available (`Speed_01` in demographics.xls, m/s, 165/166 subjects, timed by
+  clinicians in trial 01). Stride/step length are DERIVED ESTIMATES (speed x stride time), always
+  labelled as estimates; measured distance is impossible from VGRF. Values cannot be borrowed from
+  other datasets (different people). UPDRS/UPDRSM/TUAG/H&Y are never features (label proxies).
+  Height unit mix (m for Ga, cm for Ju/Si) is normalised in script 03 v3.
 - v2 features: statistics (+min/max/range/IQR/skew/kurtosis), COP from sensor geometry,
   stride-time CV, left-right symmetry, hysteresis stance/swing.
 - Planned v3: demographics (age confound: report with/without), FFT/wavelet, regularity
@@ -104,6 +106,46 @@ Leakage comparison, `scripts/14_leakage_comparison.py`, 5 seeds (`leakage_compar
 - The old "~67-70% vs ~40%" claim had no script behind it; it was replaced by these numbers.
   Any figure in a doc must trace to a script and a CSV.
 
+Features v3 and models (`scripts/12_train_models_v3.py`, 3 seeds, grouped CV; `model_comparison_v3.csv`):
+- Binary best ~83% accuracy, AUC ~0.90 (RF/Voting/HGB, `v3_all`); baseline four models up to 77%
+- RF on v2 alone is 81%: most gain is from better models; speed +1.5-2 pts; new signal families ~0
+- Demographics+speed only: 73% (RF) to 78% (SVM) binary; always report this baseline beside gait results
+- 4-class best ~51% vs 46-49% before; small vs fold SD ~0.15, not established
+- Best-of-45 selection on the same folds is optimistic: exploratory until nested CV or LOCO confirms
+- SHAP (`40_shap_report.py`): out-of-fold; sensible directions (higher speed/stride length lowers risk,
+  higher double-support raises it); outputs in docs/figures/shap_*.png and docs/patient_reports.md
+
+Model-improvement follow-ups (`scripts/16_model_improvements.py`, `docs/model_improvements.md`):
+- De-biased (nested CV) numbers to actually cite: 4-class 42.1% (sd 8.3), binary 79.4% (sd 9.7) --
+  lower than model_comparison_v3's best-of-45 table (51%, 83%), confirming selection bias there
+- Subject-level probability aggregation: no help (null result)
+- Ordinal (Frank-Hall) vs multiclass 4-class: ordinal WORSE on mean-abs-stage-error; don't adopt
+- Compact 5-feature set (speed, 2x sensor-5/6/7 force shape, COP sway) recovers 78.0% vs full 82.3%
+  binary -- use this for the clinician-facing SHAP story
+- XGBoost/LightGBM now work (`brew install libomp` fixed it)
+- Nested CV extended to include them (`17_nested_with_boosting.py`) -- FINAL numbers to cite:
+  4-class 44.4% (sd 10.8), binary 81.7% (sd 10.6). Binary gain over sklearn-only-nested (79.4%) is
+  real but modest; 4-class gain (vs 42.1%) is within noise and no model dominates fold selection.
+
+Voice (UCI #301), done (`30_voice_load.py`, `31_voice_leakage_comparison.py`, `32_voice_shap.py`):
+- Downloaded via curl+unar into data/raw_voice/; 40 train subj (20/20) x 26 rec, 28 test subj
+  (PD-only, unusable for accuracy)
+- Leakage: recording-level 58.4-69.2% vs subject-grouped 52.2-55.7% (gap 3.8-15.2 pts); 100% of
+  leaky-fold test recordings share a subject with training (vs ~63% gait) -- cleanest leakage
+  demo in the project; KEY generalization result for the thesis
+- SHAP: pitch variability (SD), jitter (PPQ5), max pitch, unvoiced-frame fraction, shimmer (APQ11)
+  top drivers -- matches established PD-dysphonia literature
+
+Statistical robustness (`scripts/18_statistical_robustness.py`, `docs/statistical_robustness.md`):
+- Leakage gap is significant for EVERY classifier/scheme/modality (Wilcoxon p<0.001, Cohen's d
+  1.4-12.6, 20 seeds) -- use these 20-seed numbers as final, supersedes the 5-seed ones
+- Permutation test (chance-level), grouped protocol, Bagging: gait binary p=0.0099, gait 4-class
+  p=0.0198 (both above chance) -- but VOICE BINARY p=0.1485, NOT significant. Report honestly:
+  voice's value is replicating the LEAKAGE MECHANISM, not a validated diagnostic result (n=40 is
+  small). Do not claim the grouped voice model confidently beats chance.
+- Capacity-vs-gap table: gap size tracks model capacity to memorize subjects (NB smallest,
+  Bagging largest) in nearly every scheme/modality -- a mechanistic, not just correlational, story
+
 ## Repo layout
 ```
 scripts/   numbered pipeline (01-11, 14 done; 12, 13, 20-22, 30-32, 40, 50 planned)
@@ -115,12 +157,42 @@ Run scripts from the project root with `venv/bin/python scripts/NN_name.py`. New
 the numbering and style of existing ones (docstring header, pandas/sklearn, pathlib). Reuse
 `07_train_multi_scheme.py` loaders instead of duplicating them.
 
-## Open items
-- Leaky-vs-grouped comparison for PADS and UCI speech; download PADS and check group counts.
-- Compare against baseline Tables 5-9 (no script yet); ROC plots; review Ju investigation
-  output (`11_investigate_ju_cohort.py`); find the missing 166th subject.
-- Features v3, extra models, SHAP, fusion demo, paper writing, venue selection.
-- Update `implementation.md` checkboxes and `rules.md` whenever a decision or milestone changes.
+## Next steps (update this section as work lands — keep it current, not a historical log)
+In priority order:
+1. **PADS wrist model** (`20`-`22`, not started): download PADS (~1.4 GB, needs the user's
+   go-ahead first), read its metadata for true group counts (PD / differential dx / healthy —
+   unconfirmed, no finger-tapping task documented), extract tremor/movement features, run
+   subject-grouped CV, repeat the leaky-vs-grouped comparison (mirror `14_leakage_comparison.py`).
+2. **UCI speech voice model** (`30`-`32`, not started): load the 26 provided acoustic features,
+   subject-grouped CV, repeat the leaky-vs-grouped comparison.
+3. **Re-run the nested-CV correction (script 16 §1) for XGBoost/LightGBM too** — they were added
+   in §5 of the same script but not yet validated with nested selection, so their 83.8-84.5%/
+   50-52% numbers carry the same optimism risk already found and corrected for the sklearn models.
+4. **SHAP for the 4-class model** (`40_shap_report.py` currently only covers binary) and switch
+   its feature list to the 5-feature compact set from `16_model_improvements.py` §4 for the
+   clinician-facing report, instead of the ~200-feature raw-sensor list.
+5. **Review the Ju-cohort investigation output** (`11_investigate_ju_cohort.py`, run but never
+   read) and **find the missing 166th subject** (165 unique IDs in `features_v2.csv`/`features_v3.csv`
+   vs 166 documented).
+6. Late-fusion demo (`50_fusion_demo.py`, not started) — after B and C exist; demo only, no
+   fused-accuracy claim.
+7. Remaining figures: confusion matrix, ROC curves, VGRF/COP plots (leakage-gap and SHAP plots
+   are already done).
+8. Optional sliding-window LSTM (`13_lstm_windows.py`) — expected to underperform at 165
+   subjects; low priority.
+9. Paper writing (Phase 5) and submission prep (Phase 6) — not started; do after B/C exist so the
+   generalization section has real numbers, not placeholders.
+10. `docs/project_overview.pdf` is now stale (predates features v3, nested-CV correction, SHAP,
+    baseline comparison, model-improvement follow-ups) — regenerate before sharing it again.
+
+Always keep this file in sync: update "Measured results" below and this list whenever a script
+runs or a decision changes, in the same turn as the work — don't let it drift to a later cleanup.
+
+## Open items / known gaps (longer-lived than "next steps" above)
+- PADS/UCI speech not downloaded; their group counts, licensing and feature sets are unconfirmed.
+- `docs/paper.pdf` copyright status in a public repo is still unconfirmed.
+- `prompt.md`/`architecture.md` current-state summaries should be checked against this file
+  periodically — they've needed manual re-sync more than once already.
 
 ## Style for answers
 Concise, recommendation first, no exhaustive option surveys. Use they/them for people whose
