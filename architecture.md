@@ -69,6 +69,10 @@ flowchart LR
 | Statistical robustness: paired significance, permutation test, capacity-vs-gap table | `18_statistical_robustness.py` | done |
 | Combined gait+voice headline leakage figure | `19_combined_leakage_figure.py` | done |
 | Fold-count sensitivity (5 vs 10 folds) | `20_fold_sensitivity.py` | done |
+| Remaining figures (confusion matrices, ROC, VGRF/COP examples) | `21_figures_confusion_roc_vgrf.py` | done |
+| Gait+voice late-fusion demo | `22_fusion_demo.py` | done |
+| LOCO generalization, calibration, sens/spec/AUC with fold variance | `23_generalization_calibration_clinical.py` | done |
+| Sliding-window LSTM (negative result) | `13_lstm_windows.py` | done |
 
 ### Model B: wrist tremor / hand movement (PADS) [blocked -- see note]
 - Download attempted 2026-10 and abandoned: this sandbox's network is heavily throttled

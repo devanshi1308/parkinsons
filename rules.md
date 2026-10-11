@@ -269,3 +269,39 @@ Record of project decisions. Add new entries at the bottom with the date and the
   planned ("expected to underperform at 165 subjects; report honestly"). Not pursued further;
   do not use LSTM as a reported model in the paper except as this honest negative result.
 - Output: `data/processed/lstm_results.csv`, `docs/figures/lstm_vs_tabular.png`.
+
+## Cross-cohort generalization, calibration, clinical metrics (script 23)
+- **Leave-one-cohort-out (binary, LightGBM, v3_all):** accuracy Ga 80.5% / Ju 89.9% / Si 71.9%
+  (mean 80.8%, balanced accuracy 77.0%), AUC 0.87 / 0.91 / 0.81. Beats the held-out cohort's
+  majority-class baseline in every cohort (66.4% / 80.6% / 54.7%), and the mean (80.8%) agrees
+  with the nested estimate (81.7%), so the binary result is not just cohort memorization.
+- **But the gait signal's incremental value is cohort-dependent.** A demographics+speed-only
+  model (no gait-signal features) scores 73.5-72.6% (Ga), 82.9-89.9% (Ju), 59.4-62.5% (Si)
+  held-out. Gait features add roughly 8-10 points in Ga and Si but ~0 in Ju, where demographics+
+  speed already reaches 89.9% (same as v3_all). Across cohorts the mean gain of v3_all over
+  demo_speed_only is ~9 points for LightGBM and ~3.5 for Random Forest. Say this plainly: the
+  honest claim is "gait adds signal beyond demographics+speed in two of three cohorts", not "gait
+  adds ~X points everywhere". Cohorts also differ in age and class mix (see Ju investigation).
+- **LOCO 4-class (v3_all):** LightGBM mean 51.0% (balanced accuracy 41.6%), above the held-out
+  majority baseline in all three cohorts; Random Forest 45.5%, slightly BELOW the Ju baseline
+  (41.1% vs 41.9%). Weak and model-dependent; keep 4-class as a secondary, caveated result.
+- **Calibration (binary, out-of-fold, subject-grouped, seed 42, 306 trials):** raw LightGBM is
+  the worst calibrated (Brier 0.130, ECE 0.101; mid-range probabilities 0.2-0.7 all correspond to
+  ~50% observed PD, i.e. nearly uninformative). Platt (sigmoid) calibration fixes most of it:
+  LightGBM Brier 0.115, ECE 0.036; Random Forest 0.128 -> 0.123 (ECE 0.079 -> 0.052). Isotonic is
+  similar or slightly worse. Differences between sigmoid and isotonic are within noise at n=306.
+  RECOMMENDATION: any patient-facing "chance of PD" must use Platt-calibrated probabilities
+  (script 22's fusion demo already used sigmoid calibration). Figure:
+  `docs/figures/calibration_reliability.png`.
+- **Clinical metrics, LightGBM on v3_all, 10 folds x 3 seeds, threshold 0.5 (mean, SD across
+  folds):** sensitivity 0.897 (0.116), specificity 0.699 (0.186), PPV 0.878 (0.069), NPV 0.792
+  (0.193), accuracy 0.838 (0.094), AUC 0.911 (0.073). Random Forest similar (sens 0.890, spec
+  0.688, AUC 0.894). Fixed configuration, NOT nested: accuracy is ~2 points above the nested
+  81.7%, consistent with a small selection optimism, so CITE THE NESTED ACCURACY, and cite these
+  for sensitivity/specificity/AUC with their SDs.
+- **Specificity is the weak point** (70%, SD 19 points): the model over-calls PD, flagging about
+  30% of healthy walkers. PPV/NPV also depend on prevalence: this dataset is 69% PD, so PPV 0.88
+  would be far lower in a general screening population where PD prevalence is low. Do not present
+  these PPV/NPV figures as screening performance.
+- Outputs: `data/processed/loco_results.csv`, `calibration_results.csv`,
+  `binary_clinical_metrics.csv`, `docs/generalization_calibration_clinical.md`.

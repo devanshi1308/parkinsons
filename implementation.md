@@ -62,6 +62,8 @@
 - [x] Fold-count sensitivity (5 vs 10 folds) and combined gait+voice headline figure
       (`20_fold_sensitivity.py`, `19_combined_leakage_figure.py`, `docs/figures/combined_leakage_gap.png`)
 
+- [x] Leave-one-cohort-out generalization, probability calibration, sensitivity/specificity/AUC with fold variance (`23_generalization_calibration_clinical.py`, `docs/generalization_calibration_clinical.md`)
+
 ## Phase 5 — Paper writing
 - [x] Methods + Results drafted with full numeric/statistical backing (`docs/paper_draft_methods_results.md`)
 - [ ] Abstract

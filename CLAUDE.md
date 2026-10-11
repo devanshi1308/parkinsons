@@ -24,8 +24,8 @@ research screening estimates, not diagnoses.
 | Model | Dataset | Notes |
 |---|---|---|
 | A: Gait | PhysioNet gaitpdb v1.0.0 | 166 documented subjects (165 unique IDs in `features_v2.csv`), 306 trials, cohorts Ga/Ju/Si, 16 VGRF sensors + 2 totals, 100 Hz. H&Y: Healthy 73 / Mild 55 / Moderate 28 / Severe 10 subjects (Severe = 24 trials) |
-| B: Wrist | PADS (PhysioNet smartwatch) | 469 participants, accel+gyro 100 Hz, 11 tasks, open CC BY-NC-SA 4.0. Not downloaded; group counts unchecked. No confirmed finger-tapping task, so this is a wrist tremor / hand-movement model |
-| C: Voice | UCI Parkinson's Speech #301 | 40 training subjects (20 PD/20 healthy) x 26 recordings, 26 provided acoustic features, no raw audio; test set is 28 PD only (unusable for accuracy). Not downloaded |
+| B: Wrist | PADS (PhysioNet smartwatch) | 469 participants, accel+gyro 100 Hz, 11 tasks, open CC BY-NC-SA 4.0. NOT downloaded (the sandbox network was too throttled; the user is downloading it locally); group counts unchecked. No confirmed finger-tapping task, so this is a wrist tremor / hand-movement model |
+| C: Voice | UCI Parkinson's Speech #301 | 40 training subjects (20 PD/20 healthy) x 26 recordings, 26 provided acoustic features, no raw audio; test set is 28 PD only (unusable for accuracy). Downloaded and fully analyzed (scripts 30-32) |
 
 Different people in each dataset: never merge rows across them. Raw data is git-ignored; see
 `data-README.md` for download steps.
@@ -70,14 +70,14 @@ Different people in each dataset: never merge rows across them. Raw data is git-
   Height unit mix (m for Ga, cm for Ju/Si) is normalised in script 03 v3.
 - v2 features: statistics (+min/max/range/IQR/skew/kurtosis), COP from sensor geometry,
   stride-time CV, left-right symmetry, hysteresis stance/swing.
-- Planned v3: demographics (age confound: report with/without), FFT/wavelet, regularity
-  (autocorrelation, sample entropy, DFA), double-support time.
+- v3 (DONE, `03_extract_features_v3.py`): demographics, speed, FFT/wavelet, regularity
+  (autocorrelation, sample entropy; DFA not implemented), double-support time.
 
 **Models**
 - Used: Decision Tree, linear SVM, Bagging (30 trees), GaussianNB (mirrors the baseline).
-- Planned: Random Forest/Extra Trees, XGBoost/LightGBM, logistic regression/LDA, stacking;
-  optional sliding-window LSTM with augmentation (expect it to underperform at 165 subjects;
-  report honestly). Ordinal models are a possible fit for H&Y.
+- Also done: Random Forest, Extra Trees, HistGradientBoosting, logistic regression, soft voting,
+  XGBoost, LightGBM; sliding-window LSTM (66.0%, negative result); ordinal Frank-Hall (worse, not
+  adopted).
 
 **Making the data "bigger"**
 - Real limit is subjects (166), not rows. Windows/augmentation add rows, not subjects. Only
@@ -85,7 +85,8 @@ Different people in each dataset: never merge rows across them. Raw data is git-
 - Class imbalance: class weights and SMOTE tried; no meaningful gain.
 
 **Repo/process**
-- `.gitignore` (was misnamed `gitignore`) fixed; data folders and processed CSVs are ignored.
+- `.gitignore` (was misnamed `gitignore`) fixed. Raw/interim data (`data/raw*`, `data/interim`) is
+  ignored; `data/processed/*.csv` IS tracked (changed 2026-10: small reproducible results tables).
   `docs/paper.pdf` was committed; confirm it is fine in a public repo (possibly copyrighted).
 - Dr. Minirani removed from all files (user request).
 - I (Claude) make no commits or pushes; give the user the commands.
@@ -146,10 +147,24 @@ Statistical robustness (`scripts/18_statistical_robustness.py`, `docs/statistica
 - Capacity-vs-gap table: gap size tracks model capacity to memorize subjects (NB smallest,
   Bagging largest) in nearly every scheme/modality -- a mechanistic, not just correlational, story
 
+Generalization, calibration, clinical metrics (`scripts/23_generalization_calibration_clinical.py`):
+- LOCO binary (LightGBM, v3_all): mean 80.8% (Ga 80.5 / Ju 89.9 / Si 71.9), beats every held-out
+  majority baseline, agrees with nested 81.7%. Gait adds ~8-10 pts over demographics+speed in Ga
+  and Si but ~0 in Ju -- report as cohort-dependent, not a uniform gain
+- Calibration: raw LightGBM is the worst calibrated (ECE 0.10); use Platt-calibrated probabilities
+  for any patient-facing "chance of PD" (LightGBM+Platt Brier 0.115, ECE 0.036)
+- Binary clinical metrics (LightGBM v3_all, fixed config, 10 folds x 3 seeds): sensitivity 0.90
+  (sd 0.12), specificity 0.70 (sd 0.19), AUC 0.91 (sd 0.07). Specificity is the weak point; PPV/NPV
+  reflect this dataset's 69% PD prevalence and must not be presented as screening performance
+- Other results since the last sync: LSTM 66.0% (negative, `13_lstm_windows.py`); fusion demo is
+  gait+voice only (`22_fusion_demo.py`); extra figures in `21_figures_confusion_roc_vgrf.py`
+
 ## Repo layout
 ```
-scripts/   numbered pipeline (01-11, 14 done; 12, 13, 20-22, 30-32, 40, 50 planned)
-data/      raw/ raw_sorted/ interim/ processed/ (git-ignored); raw_pads/, raw_voice/ planned
+scripts/   numbered pipeline: 01-23, 30-32, 40, 41 done (see architecture.md for the table);
+           PADS scripts (use 24+) not yet written
+data/      raw/ raw_sorted/ raw_voice/ interim/ are git-ignored; processed/*.csv is tracked;
+           raw_pads/ will be git-ignored once it exists
 docs/      paper.pdf, figures/
 prd.md architecture.md implementation.md rules.md prompt.md data-README.md README.md
 ```
@@ -174,8 +189,8 @@ VGRF example, COP trajectory — `21_figures_confusion_roc_vgrf.py`), late-fusio
 (gait+voice only, PADS excluded — `22_fusion_demo.py`).
 
 In priority order, what's actually left:
-1. **PADS wrist model** (script slots `21`-`23` are now taken by gait/voice figures and fusion
-   demo — use e.g. `23`-`25` when starting this): download attempted and ABANDONED in this
+1. **PADS wrist model** (script slots `21`-`23` are now taken by the figures, fusion demo and
+   generalization/calibration scripts — use `24`+ when starting this): download attempted and ABANDONED in this
    sandbox — network heavily throttled (~4-16 KB/s measured directly against physionet.org),
    so the 735MB bulk zip would take 13+ hours. Needs the USER to download on their own machine
    (`curl -L -o data/raw_pads/pads.zip
