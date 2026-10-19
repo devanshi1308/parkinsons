@@ -1,0 +1,15 @@
+,n_folds_selected
+v1+v2+v3+dfa + HistGB,4
+v1+v2+v3+dfa + LogReg,3
+v1+v2+v3 + Bagging,3
+v1+v2+v3 + HistGB,3
+v1+v2+v3 + SVM,2
+v1 + SVM,2
+v1+v2 + Bagging,1
+v1+v2+v3+dfa + RandomForest,1
+v1+v2+v3 + RandomForest,1
+v1+v2+v3+dfa + Bagging,1
+v1+v2+v3+dfa + SVM,1
+v1+v2 + HistGB,1
+v1+v2 + DecisionTree,1
+demo_speed_only + SVM,1
